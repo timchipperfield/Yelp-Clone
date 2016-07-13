@@ -40,4 +40,17 @@ feature "restaurants" do
     end
   end
 
+  context 'editing restaurants' do
+    before { Restaurant.create(name: "Apoorva's Cafe", description: 'For budding coders')}
+    scenario 'let a user edit a restaurant' do
+      visit '/restaurants'
+      click_link "Edit Apoorva's Cafe"
+      fill_in "Name", with: "Apoorvs's Restaurant"
+      fill_in "Description", with: 'Late night hangout for programmers'
+      click_button 'Update Restaurant'
+      expect(page).to have_content "Apoorvs's Restaurant"
+      expect(current_path).to eq '/restaurants'
+    end
+  end
+
 end
